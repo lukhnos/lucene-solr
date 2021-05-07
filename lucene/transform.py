@@ -109,7 +109,7 @@ def process_source(path):
         if p.search(body):
             extras.append('import %s;' % i)
 
-    if (extras and not extra_import_tagline) in head_lines:
+    if extras and not extra_import_tagline in head_lines:
         new_head_lines.append(extra_import_tagline)
         new_head_lines.extend(extras)
         new_head_lines.append('')
