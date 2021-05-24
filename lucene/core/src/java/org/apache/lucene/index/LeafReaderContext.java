@@ -30,8 +30,7 @@ public final class LeafReaderContext extends IndexReaderContext {
   public final int docBase;
   
   private final LeafReader reader;
-  private final List<LeafReaderContext> leaves;
-  
+
   /**
    * Creates a new {@link LeafReaderContext} 
    */    
@@ -41,7 +40,6 @@ public final class LeafReaderContext extends IndexReaderContext {
     this.ord = leafOrd;
     this.docBase = leafDocBase;
     this.reader = reader;
-    this.leaves = isTopLevel ? Collections.singletonList(this) : null;
   }
   
   LeafReaderContext(LeafReader leafReader) {
@@ -53,8 +51,7 @@ public final class LeafReaderContext extends IndexReaderContext {
     if (!isTopLevel) {
       throw new UnsupportedOperationException("This is not a top-level context.");
     }
-    assert leaves != null;
-    return leaves;
+    return Collections.singletonList(this);
   }
   
   @Override

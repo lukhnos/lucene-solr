@@ -19,12 +19,16 @@ package org.apache.lucene.index;
 
 import java.util.List;
 
+// Extra imports by portmobile.
+import org.lukhnos.portmobile.j2objc.annotations.Weak;
+
 /**
  * A struct like class that represents a hierarchical relationship between
  * {@link IndexReader} instances. 
  */
 public abstract class IndexReaderContext {
   /** The reader context for this reader's immediate parent, or null if none */
+  @Weak
   public final CompositeReaderContext parent;
   /** <code>true</code> if this context struct represents the top level reader within the hierarchical context */
   public final boolean isTopLevel;

@@ -70,6 +70,9 @@ import org.apache.lucene.util.IOUtils;
 import org.apache.lucene.util.IntsRef;
 import org.apache.lucene.util.packed.PackedInts;
 
+// Extra imports by portmobile.
+import org.lukhnos.portmobile.j2objc.annotations.WeakOuter;
+
 /**
  * {@link StoredFieldsReader} impl for {@link CompressingStoredFieldsFormat}.
  * @lucene.experimental
@@ -364,6 +367,7 @@ public final class CompressingStoredFieldsReader extends StoredFieldsReader {
   /**
    * Keeps state about the current block of documents.
    */
+  @WeakOuter
   private class BlockState {
 
     private int docBase, chunkDocs;

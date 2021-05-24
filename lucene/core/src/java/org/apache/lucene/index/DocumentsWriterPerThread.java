@@ -71,6 +71,7 @@ class DocumentsWriterPerThread {
   };
 
   static class DocState {
+    @Weak
     final DocumentsWriterPerThread docWriter;
     Analyzer analyzer;
     InfoStream infoStream;

@@ -29,6 +29,9 @@ import org.apache.lucene.util.BytesRef;
 import org.apache.lucene.util.IOUtils;
 import org.apache.lucene.util.RamUsageEstimator;
 
+// Extra imports by portmobile.
+import org.lukhnos.portmobile.j2objc.annotations.Weak;
+
 final class TermVectorsConsumer extends TermsHash {
 
   TermVectorsWriter writer;
@@ -36,6 +39,7 @@ final class TermVectorsConsumer extends TermsHash {
   /** Scratch term used by TermVectorsConsumerPerField.finishDocument. */
   final BytesRef flushTerm = new BytesRef();
 
+  @Weak
   final DocumentsWriterPerThread docWriter;
 
   /** Used by TermVectorsConsumerPerField when serializing

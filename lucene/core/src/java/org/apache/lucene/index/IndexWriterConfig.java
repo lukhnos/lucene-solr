@@ -27,8 +27,8 @@ import org.apache.lucene.search.similarities.Similarity;
 import org.apache.lucene.store.SleepingLockWrapper;
 import org.apache.lucene.util.InfoStream;
 import org.apache.lucene.util.PrintStreamInfoStream;
-import org.apache.lucene.util.SetOnce;
-import org.apache.lucene.util.SetOnce.AlreadySetException;
+import org.lukhnos.portmobile.lucene.WeakSetOnce;
+import org.lukhnos.portmobile.lucene.WeakSetOnce.AlreadySetException;
 
 /**
  * Holds all the configuration that is used to create an {@link IndexWriter}.
@@ -110,7 +110,7 @@ public final class IndexWriterConfig extends LiveIndexWriterConfig {
   
   // indicates whether this config instance is already attached to a writer.
   // not final so that it can be cloned properly.
-  private SetOnce<IndexWriter> writer = new SetOnce<>();
+  private WeakSetOnce<IndexWriter> writer = new WeakSetOnce<>();
   
   /**
    * Sets the {@link IndexWriter} this config is attached to.

@@ -38,11 +38,16 @@ import org.apache.lucene.util.Counter;
 import org.apache.lucene.util.IOUtils;
 import org.apache.lucene.util.RamUsageEstimator;
 
+// Extra imports by portmobile.
+import org.lukhnos.portmobile.j2objc.annotations.Weak;
+import org.lukhnos.portmobile.j2objc.annotations.WeakOuter;
+
 /** Default general purpose indexing chain, which handles
  *  indexing all types of fields. */
 final class DefaultIndexingChain extends DocConsumer {
   final Counter bytesUsed;
   final DocumentsWriterPerThread.DocState docState;
+  @Weak
   final DocumentsWriterPerThread docWriter;
   final FieldInfos.Builder fieldInfos;
 
@@ -515,6 +520,7 @@ final class DefaultIndexingChain extends DocConsumer {
   }
 
   /** NOTE: not static: accesses at least docState, termsHash. */
+  @WeakOuter
   private final class PerField implements Comparable<PerField> {
 
     final FieldInfo fieldInfo;

@@ -38,6 +38,9 @@ import org.lukhnos.portmobile.util.Objects;
 import java.util.Set;
 import java.util.regex.Matcher;
 
+// Extra imports by portmobile.
+import org.lukhnos.portmobile.j2objc.annotations.Weak;
+
 /*
  * This class keeps track of each SegmentInfos instance that
  * is still "live", either because it corresponds to a
@@ -113,6 +116,7 @@ final class IndexFileDeleter implements Closeable {
    *  infoStream is enabled */
   public static boolean VERBOSE_REF_COUNTS = false;
 
+  @Weak
   private final IndexWriter writer;
 
   // called only from assert

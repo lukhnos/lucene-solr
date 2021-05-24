@@ -46,6 +46,9 @@ import org.apache.lucene.util.BytesRef;
 import org.apache.lucene.util.IOUtils;
 import org.apache.lucene.util.RamUsageEstimator;
 
+// Extra imports by portmobile.
+import org.lukhnos.portmobile.j2objc.annotations.WeakOuter;
+
 /**
  * Enables per field docvalues support.
  * <p>
@@ -95,6 +98,7 @@ public abstract class PerFieldDocValuesFormat extends DocValuesFormat {
     }
   }
     
+  @WeakOuter
   private class FieldsWriter extends DocValuesConsumer {
 
     private final Map<DocValuesFormat,ConsumerAndSuffix> formats = new HashMap<>();
@@ -223,6 +227,7 @@ public abstract class PerFieldDocValuesFormat extends DocValuesFormat {
     }
   }
 
+  @WeakOuter
   private class FieldsReader extends DocValuesProducer {
 
     private final Map<String,DocValuesProducer> fields = new TreeMap<>();

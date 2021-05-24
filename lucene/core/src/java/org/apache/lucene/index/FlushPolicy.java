@@ -22,6 +22,9 @@ import org.apache.lucene.index.DocumentsWriterPerThreadPool.ThreadState;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.util.InfoStream;
 
+// Extra imports by portmobile.
+import org.lukhnos.portmobile.j2objc.annotations.Weak;
+
 /**
  * {@link FlushPolicy} controls when segments are flushed from a RAM resident
  * internal data-structure to the {@link IndexWriter}s {@link Directory}.
@@ -52,6 +55,7 @@ import org.apache.lucene.util.InfoStream;
  * @see IndexWriterConfig#setFlushPolicy(FlushPolicy)
  */
 abstract class FlushPolicy {
+  @Weak
   protected LiveIndexWriterConfig indexWriterConfig;
   protected InfoStream infoStream;
 

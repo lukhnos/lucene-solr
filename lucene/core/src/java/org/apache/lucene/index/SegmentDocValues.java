@@ -29,6 +29,9 @@ import org.apache.lucene.store.IOContext;
 import org.apache.lucene.util.IOUtils;
 import org.apache.lucene.util.RefCount;
 
+// Extra imports by portmobile.
+import org.lukhnos.portmobile.j2objc.annotations.WeakOuter;
+
 /**
  * Manages the {@link DocValuesProducer} held by {@link SegmentReader} and
  * keeps track of their reference counting.
@@ -48,7 +51,13 @@ final class SegmentDocValues {
     // set SegmentReadState to list only the fields that are relevant to that gen
     SegmentReadState srs = new SegmentReadState(dvDir, si.info, infos, IOContext.READ, segmentSuffix);
     DocValuesFormat dvFormat = si.info.getCodec().docValuesFormat();
-    return new RefCount<DocValuesProducer>(dvFormat.fieldsProducer(srs)) {
+
+    @WeakOuter
+    class DocValuesProducerRefCount extends RefCount<DocValuesProducer> {
+
+      public DocValuesProducerRefCount(DocValuesProducer object) {
+        super(object);
+      }
       @SuppressWarnings("synthetic-access")
       @Override
       protected void release() throws IOException {
@@ -57,7 +66,8 @@ final class SegmentDocValues {
           genDVProducers.remove(gen);
         }
       }
-    };
+    }
+    return new DocValuesProducerRefCount(dvFormat.fieldsProducer(srs));
   }
 
   /** Returns the {@link DocValuesProducer} for the given generation. */

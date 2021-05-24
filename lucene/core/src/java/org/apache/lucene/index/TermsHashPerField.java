@@ -27,6 +27,9 @@ import org.apache.lucene.util.Counter;
 import org.apache.lucene.util.IntBlockPool;
 import org.apache.lucene.util.BytesRefHash.BytesStartArray;
 
+// Extra imports by portmobile.
+import org.lukhnos.portmobile.j2objc.annotations.Weak;
+
 abstract class TermsHashPerField implements Comparable<TermsHashPerField> {
   private static final int HASH_INIT_SIZE = 4;
 
@@ -225,6 +228,7 @@ abstract class TermsHashPerField implements Comparable<TermsHashPerField> {
 
   private static final class PostingsBytesStartArray extends BytesStartArray {
 
+    @Weak
     private final TermsHashPerField perField;
     private final Counter bytesUsed;
 

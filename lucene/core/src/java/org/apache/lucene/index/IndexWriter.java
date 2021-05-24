@@ -73,6 +73,9 @@ import org.apache.lucene.util.StringHelper;
 import org.apache.lucene.util.ThreadInterruptedException;
 import org.apache.lucene.util.Version;
 
+// Extra imports by portmobile.
+import org.lukhnos.portmobile.j2objc.annotations.WeakOuter;
+
 /**
   An <code>IndexWriter</code> creates and maintains an index.
 
@@ -487,6 +490,7 @@ public class IndexWriter implements Closeable, TwoPhaseCommit, Accountable {
    *  places if it is in "near real-time mode" (getReader()
    *  has been called on this instance). */
 
+  @WeakOuter
   class ReaderPool implements Closeable {
     
     private final Map<SegmentCommitInfo,ReadersAndUpdates> readerMap = new HashMap<>();
@@ -4827,7 +4831,12 @@ public class IndexWriter implements Closeable, TwoPhaseCommit, Accountable {
   /** Wraps the incoming {@link Directory} so that we assign a per-thread
    *  {@link MergeRateLimiter} to all created {@link IndexOutput}s. */
   private Directory addMergeRateLimiters(Directory in) {
-    return new FilterDirectory(in) {
+    @WeakOuter
+    class InnerFilterDirectory extends FilterDirectory {
+      protected InnerFilterDirectory(Directory in) {
+        super(in);
+      }
+
       @Override
       public IndexOutput createOutput(String name, IOContext context) throws IOException {
         ensureOpen();
@@ -4845,6 +4854,7 @@ public class IndexWriter implements Closeable, TwoPhaseCommit, Accountable {
 
         return new RateLimitedIndexOutput(rateLimiter, in.createOutput(name, context));
       }
-    };
+    }
+    return new InnerFilterDirectory(in);
   }
 }
