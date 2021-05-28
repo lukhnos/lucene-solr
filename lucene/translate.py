@@ -84,7 +84,7 @@ def postprocess_translated_objc(path):
         new_code = new_code.replace(page_size_line.group(), '/* ' + page_size_line.group() + ' */' + DISABLE_SUFFIX)  # nopep8
 
     new_code = new_code.replace(
-        'return create_OrgApacheLuceneAnalysisHunspellISO8859_14Decoder_init();',  # nopep8
+        'return create_OrgApacheLuceneAnalysisHunspellISO8859_14Decoder_initPackagePrivate();',  # nopep8
         '@throw [new_JavaLangRuntimeException_initWithNSString_(@"Not translated to Objective-C") autorelease];' + DISABLE_SUFFIX  # nopep8
     )
 

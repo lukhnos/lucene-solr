@@ -48,19 +48,10 @@ extra_imports_re = {
     re.compile(re.escape(k), re.M | re.S): v for k, v in extra_imports.items()
 }
 
-fast_enum_snippet = ('/*-[\n'
-    '- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(__unsafe_unretained id *)stackbuf count:(NSUInteger)len {\n' +  # nopep8
-    '  // Essentially disables fast-enumeration for correctness.\n' +
-    '  return JreDefaultFastEnumeration(self, state, stackbuf, 1);\n' +
-    '}\n' +
-    ']-*/\n'
-)
-
 method_calls = {
     'FileChannel.open': 'FileChannelUtils.open',
     '// j2objc:"Weak"': '@Weak',
     '// j2objc:"WeakOuter"': '@WeakOuter',
-    '// j2objc:"NoFastEnumeration"': fast_enum_snippet,
 }
 
 method_calls_re = {
