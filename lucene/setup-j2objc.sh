@@ -1,24 +1,22 @@
-#!/bin/bash -e
+#!/bin/bash
 
-# TODO: Parameterize, error checking, temp file, etc.
-VERSION=1.0.2
-FILE=j2objc-$VERSION.zip
-URL=https://github.com/google/j2objc/releases/download/$VERSION/$FILE
-#URL=https://github.com/lukhnos/j2objc/releases/download/$VERSION/$FILE
-DIR=j2objc-$VERSION
-TARGET=j2objc
+function setup_symlink {
+    DIR=$(dirname $1)
+    mkdir -p "${DIR}"
+    rm -f "$1"
+    ln -s "${J2OBJC_BASE_PATH}" "$1"
+    echo linked "${J2OBJC_BASE_PATH}" to "$1"
+}
 
-echo Fetching ${URL}
-curl -L -o "${FILE}" "${URL}"
+J2OBJC_BIN_PATH=$(which j2objc)
+if [ $? -ne 0 ]; then
+    echo "Cannot find j2objc in PATH; download the latest release at https://github.com/google/j2objc/releases"
+    exit 1
+fi
 
-echo Unzipping ${FILE}
-unzip "${FILE}"
+J2OBJC_BASE_PATH=$(dirname "${J2OBJC_BIN_PATH}")
+echo Found j2objc at: ${J2OBJC_BASE_PATH}
+J2OBJC_VERSION=$(j2objc 2>&1 -version)
+echo Using version: $J2OBJC_VERSION
 
-echo Remove old ${TARGET} directory
-rm -rf "${TARGET}"
-
-echo Rename ${DIR} into ${TARGET}
-mv "${DIR}" "${TARGET}"
-
-echo Moving ${FILE} archive to ${TARGET}
-mv "${FILE}" "${TARGET}"
+setup_symlink j2objc

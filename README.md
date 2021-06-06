@@ -72,8 +72,10 @@ garbage collection, we need to break a few cyclic references using j2objc's
 weak reference annotations (Java `WeakReference` is not used to minimize
 source code changes).
 
-First, within the lucene directory execute `setup-j2objc.sh` in order to
-fetch and setup j2objc correctly:
+First, set up the J2ObjC dependencies. If you haven't installed it,
+[download version 2.8](https://github.com/google/j2objc/releases/tag/2.8) from
+its GitHub releases page. After you have made sure that the command `j2objc`
+exists in your `PATH`, run within the `lucene` directory:
 
 ```bash
 cd lucene
